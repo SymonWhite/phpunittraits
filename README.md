@@ -1,6 +1,10 @@
-#PHPUnitTraits
+# PHPUnitTraits
 
-##docker
+## usage
+
+... to be continue ...
+
+## docker
 
 * build
 
