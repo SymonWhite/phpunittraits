@@ -1,0 +1,9 @@
+version: "3.2"
+services:
+  php:
+    build: './docker/php'
+    volumes:
+      - .:/var/www/html/
+      - $SSH_AUTH_SOCK:$SSH_AUTH_SOCK
+    environment:
+      SSH_AUTH_SOCK: $SSH_AUTH_SOCK
