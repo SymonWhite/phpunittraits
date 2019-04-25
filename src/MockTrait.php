@@ -27,7 +27,7 @@ trait MockTrait
         array $return = [],
         $invokes = 1,
         $returnSelf = true
-    ) {
+    ): self {
         $invocationMocker = $mockObject->expects(new InvokedCount($invokes))
             ->method($methodName)
             ->with(...$arguments);
@@ -51,7 +51,7 @@ trait MockTrait
      *
      * @return $this
      */
-    protected function getterMock(MockObject $mockObject, $methodName, array $return = [], $invokes = 1)
+    protected function getterMock(MockObject $mockObject, $methodName, array $return = [], $invokes = 1): self
     {
         $this->mockFunction($mockObject, $methodName, [], $return, $invokes);
 
@@ -73,7 +73,7 @@ trait MockTrait
         array $argument = [],
         $invokes = 1,
         $returnSelf = true
-    ) {
+    ): self {
         $this->mockFunction($mockObject, $methodName, $argument, [], $invokes, $returnSelf);
 
         return $this;
@@ -86,7 +86,7 @@ trait MockTrait
      *
      * @return $this
      */
-    protected function willReturnMapMock(MockObject $object, $methodName, array $valueMap)
+    protected function willReturnMapMock(MockObject $object, $methodName, array $valueMap): self
     {
         $object->expects(new InvokedCount(count($valueMap)))->method($methodName)->willReturnMap($valueMap);
 

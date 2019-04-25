@@ -17,7 +17,7 @@ trait ConstructorTrait
      *
      * @throws ReflectionException
      */
-    protected function doConstructorTest($class, array $propertyValuesByName)
+    protected function doConstructorTest($class, array $propertyValuesByName): self
     {
         foreach ($propertyValuesByName as $name => $value) {
             $this->assertEquals($value, $this->getPropertyValue($class, $name));

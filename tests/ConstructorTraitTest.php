@@ -20,7 +20,7 @@ class ConstructorTraitTest extends TestCase
      *
      * @throws ReflectionException
      */
-    public function testDoConstructorTest()
+    public function testDoConstructorTest(): void
     {
         $class = $this->createMock(\stdClass::class);
         $propertyName = 'name';
@@ -51,7 +51,7 @@ class ConstructorTraitTest extends TestCase
      *
      * @throws ReflectionException
      */
-    protected function getMethod($class, $name)
+    protected function getMethod($class, $name): ReflectionMethod
     {
         $method = new ReflectionMethod($class, $name);
         $method->setAccessible(true);

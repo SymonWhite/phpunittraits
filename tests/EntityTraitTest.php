@@ -23,7 +23,7 @@ class EntityTraitTest extends TestCase
      *
      * @throws ReflectionException
      */
-    public function testDoSetterTest()
+    public function testDoSetterTest(): void
     {
         $class = $this->createMock(\stdClass::class);
         $propertyName = 'name';
@@ -62,7 +62,7 @@ class EntityTraitTest extends TestCase
      *
      * @throws ReflectionException
      */
-    public function testDoGetterTest()
+    public function testDoGetterTest(): void
     {
         $class = $this->createMock(\stdClass::class);
         $propertyName = 'name';
@@ -80,7 +80,7 @@ class EntityTraitTest extends TestCase
         $instance->expects($this->once())
             ->method('setPropertyValue')
             ->with($class, $propertyName, $propertyValue)
-            ->willReturn($propertyValue);
+            ->willReturnSelf();
 
         $instance->expects($this->once())
             ->method('testGetter')
@@ -97,7 +97,7 @@ class EntityTraitTest extends TestCase
      *
      * @throws ReflectionException
      */
-    public function testDoGetterAndSetterTest()
+    public function testDoGetterAndSetterTest(): void
     {
         $class = $this->createMock(\stdClass::class);
         $propertyName = 'name';
@@ -131,7 +131,7 @@ class EntityTraitTest extends TestCase
      *
      * @throws ReflectionException
      */
-    public function testTestSetter()
+    public function testTestSetter(): void
     {
         $class = $this->createMock(TestEntity::class);
         $propertyName = 'id';
@@ -158,7 +158,7 @@ class EntityTraitTest extends TestCase
      *
      * @throws ReflectionException
      */
-    public function testTestGetter()
+    public function testTestGetter(): void
     {
         $class = $this->createMock(TestEntity::class);
         $propertyName = 'id';
@@ -188,7 +188,7 @@ class EntityTraitTest extends TestCase
      *
      * @throws ReflectionException
      */
-    protected function getMethod($class, $name)
+    protected function getMethod($class, $name): ReflectionMethod
     {
         $method = new ReflectionMethod($class, $name);
         $method->setAccessible(true);

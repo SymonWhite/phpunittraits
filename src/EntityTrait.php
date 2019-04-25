@@ -17,8 +17,9 @@ trait EntityTrait
      * @return $this
      *
      * @throws ReflectionException
+     * @throws MethodNotFoundException
      */
-    protected function doSetterTest($class, array $propertyValuesByName)
+    protected function doSetterTest($class, array $propertyValuesByName): self
     {
         foreach ($propertyValuesByName as $name => $value) {
             $this->testSetter($class, $name, $value);
@@ -35,8 +36,9 @@ trait EntityTrait
      * @return $this
      *
      * @throws ReflectionException
+     * @throws MethodNotFoundException
      */
-    protected function doGetterTest($class, array $propertyValuesByName)
+    protected function doGetterTest($class, array $propertyValuesByName): self
     {
         foreach ($propertyValuesByName as $name => $value) {
             $this->setPropertyValue($class, $name, $value);
@@ -51,8 +53,10 @@ trait EntityTrait
      * @param array  $propertyValuesByName
      *
      * @return $this
+     *
+     * @throws MethodNotFoundException
      */
-    protected function doGetterAndSetterTest($class, array $propertyValuesByName)
+    protected function doGetterAndSetterTest($class, array $propertyValuesByName): self
     {
         foreach ($propertyValuesByName as $name => $value) {
             $this->testSetter($class, $name, $value);
@@ -69,7 +73,7 @@ trait EntityTrait
      *
      * @throws MethodNotFoundException
      */
-    protected function testSetter($class, $name, $value)
+    protected function testSetter($class, $name, $value): void
     {
         $ucfName = ucfirst($name);
         $methodNames = [
@@ -94,7 +98,7 @@ trait EntityTrait
      *
      * @throws MethodNotFoundException
      */
-    protected function testGetter($class, $name, $value)
+    protected function testGetter($class, $name, $value): void
     {
         $ucfName = ucfirst($name);
         $methodNames = [
@@ -131,7 +135,7 @@ trait EntityTrait
      *
      * @throws ReflectionException
      */
-    abstract protected function setPropertyValue($class, $name, $value);
+    abstract protected function setPropertyValue($class, $name, $value): self;
 
     /**
      * Asserts that two variables are equal.

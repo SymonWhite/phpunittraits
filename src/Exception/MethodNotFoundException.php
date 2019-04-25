@@ -10,7 +10,7 @@ use Throwable;
  */
 class MethodNotFoundException extends Exception
 {
-    const MESSAGE = '%s-Method not found for property "%s" in class "%s"';
+    protected const MESSAGE = '%s-Method not found for property "%s" in class "%s"';
 
     /**
      * MethodNotFoundException constructor.
