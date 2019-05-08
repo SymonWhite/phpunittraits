@@ -17,11 +17,12 @@ trait EntityTrait
      * @return $this
      *
      * @throws ReflectionException
+     * @throws MethodNotFoundException
      */
     protected function doSetterTest($class, array $propertyValuesByName)
     {
         foreach ($propertyValuesByName as $name => $value) {
-            $this->testSetter($class, $name, $value);
+            $this->setterTest($class, $name, $value);
             $this->assertEquals($value, $this->getPropertyValue($class, $name));
         }
 
@@ -35,12 +36,13 @@ trait EntityTrait
      * @return $this
      *
      * @throws ReflectionException
+     * @throws MethodNotFoundException
      */
     protected function doGetterTest($class, array $propertyValuesByName)
     {
         foreach ($propertyValuesByName as $name => $value) {
             $this->setPropertyValue($class, $name, $value);
-            $this->testGetter($class, $name, $value);
+            $this->getterTest($class, $name, $value);
         }
 
         return $this;
@@ -51,12 +53,14 @@ trait EntityTrait
      * @param array  $propertyValuesByName
      *
      * @return $this
+     *
+     * @throws MethodNotFoundException
      */
     protected function doGetterAndSetterTest($class, array $propertyValuesByName)
     {
         foreach ($propertyValuesByName as $name => $value) {
-            $this->testSetter($class, $name, $value);
-            $this->testGetter($class, $name, $value);
+            $this->setterTest($class, $name, $value);
+            $this->getterTest($class, $name, $value);
         }
 
         return $this;
@@ -69,7 +73,7 @@ trait EntityTrait
      *
      * @throws MethodNotFoundException
      */
-    protected function testSetter($class, $name, $value)
+    protected function setterTest($class, $name, $value)
     {
         $ucfName = ucfirst($name);
         $methodNames = [
@@ -94,7 +98,7 @@ trait EntityTrait
      *
      * @throws MethodNotFoundException
      */
-    protected function testGetter($class, $name, $value)
+    protected function getterTest($class, $name, $value)
     {
         $ucfName = ucfirst($name);
         $methodNames = [
