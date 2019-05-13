@@ -77,13 +77,13 @@ trait EntityTrait
     {
         $ucfName = ucfirst($name);
         $methodNames = [
-            'set' . $ucfName,
-            'add' . rtrim($ucfName, 's')
+            'set' . $ucfName => $value,
+            'add' . rtrim($ucfName, 's') => is_array($value) ? array_shift($value): $value
         ];
 
-        foreach ($methodNames as $methodName) {
+        foreach ($methodNames as $methodName => $methodValue) {
             if (method_exists($class, $methodName)) {
-                $this->assertEquals($class, $class->{$methodName}($value));
+                $this->assertEquals($class, $class->{$methodName}($methodValue));
                 return;
             }
         }
@@ -102,13 +102,13 @@ trait EntityTrait
     {
         $ucfName = ucfirst($name);
         $methodNames = [
-            'get' . $ucfName,
-            'is' . $ucfName
+            'get' . $ucfName => is_array($value) && !empty($value) ? [array_shift($value)]: $value,
+            'is' . $ucfName => $value
         ];
 
-        foreach ($methodNames as $methodName) {
+        foreach ($methodNames as $methodName => $methodValue) {
             if (method_exists($class, $methodName)) {
-                $this->assertEquals($value, $class->{$methodName}());
+                $this->assertEquals($methodValue, $class->{$methodName}());
                 return;
             }
         }

@@ -14,5 +14,9 @@
       "SymonWhite\\PhpUnitTraits\\": "src/",
       "SymonWhite\\PhpUnitTraits\\Test\\": "tests/"
     }
+  },
+  "scripts": {
+    "test": "vendor/bin/phpunit --colors=always",
+    "test-coverage": "vendor/bin/phpunit --colors=always --coverage-html coverage"
   }
 }

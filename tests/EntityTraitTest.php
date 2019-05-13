@@ -154,6 +154,30 @@ class EntityTraitTest extends TestCase
     }
 
     /**
+     * @covers ::setterTest
+     *
+     * @throws ReflectionException
+     */
+    public function testSetterTestArray()
+    {
+        $class = $this->createMock(TestEntity::class);
+        $propertyName = 'tests';
+        $propertyValue = [1];
+        $instance = $this->getMockForTrait(EntityTrait::class, [], '', true, true, true, ['assertEquals']);
+
+        $class->expects($this->once())
+            ->method('addTest')
+            ->with(1)
+            ->willReturnSelf();
+
+        $instance->expects($this->once())
+            ->method('assertEquals')
+            ->with($class, $class);
+
+        $this->executeMethod($instance, 'setterTest', $class, $propertyName, $propertyValue);
+    }
+
+    /**
      * @covers ::getterTest
      *
      * @throws ReflectionException
@@ -178,6 +202,54 @@ class EntityTraitTest extends TestCase
 
         $this->expectException(MethodNotFoundException::class);
         $this->executeMethod($instance, 'getterTest', $class, 'name', $propertyValue);
+    }
+
+    /**
+     * @covers ::getterTest
+     *
+     * @throws ReflectionException
+     */
+    public function testGetterTestArray()
+    {
+        $class = $this->createMock(TestEntity::class);
+        $propertyName = 'tests';
+        $propertyValue = [1];
+        $instance = $this->getMockForTrait(EntityTrait::class, [], '', true, true, true, ['assertEquals']);
+
+
+        $class->expects($this->once())
+            ->method('getTests')
+            ->willReturn($propertyValue);
+
+        $instance->expects($this->once())
+            ->method('assertEquals')
+            ->with($propertyValue, $propertyValue);
+
+        $this->executeMethod($instance, 'getterTest', $class, $propertyName, $propertyValue);
+    }
+
+    /**
+     * @covers ::getterTest
+     *
+     * @throws ReflectionException
+     */
+    public function testGetterTestEmptyArray()
+    {
+        $class = $this->createMock(TestEntity::class);
+        $propertyName = 'tests';
+        $propertyValue = [];
+        $instance = $this->getMockForTrait(EntityTrait::class, [], '', true, true, true, ['assertEquals']);
+
+
+        $class->expects($this->once())
+            ->method('getTests')
+            ->willReturn($propertyValue);
+
+        $instance->expects($this->once())
+            ->method('assertEquals')
+            ->with($propertyValue, $propertyValue);
+
+        $this->executeMethod($instance, 'getterTest', $class, $propertyName, $propertyValue);
     }
 
     /**
