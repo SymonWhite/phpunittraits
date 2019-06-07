@@ -2,8 +2,8 @@
 
 namespace SymonWhite\PhpUnitTraits;
 
-use PHPUnit_Framework_MockObject_MockObject as MockObject;
-use PHPUnit_Framework_MockObject_Matcher_InvokedCount as InvokedCount;
+use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\MockObject\Matcher\InvokedCount;
 
 /**
  * Trait MockTrait

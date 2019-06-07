@@ -26,7 +26,15 @@ class ConstructorTraitTest extends TestCase
         $propertyName = 'name';
         $propertyValue = 'value';
 
-        $instance = $this->getMockForTrait(ConstructorTrait::class);
+        $instance = $this->getMockForTrait(
+            ConstructorTrait::class,
+            [],
+            '',
+            true,
+            true,
+            true,
+            ['getPropertyValue', 'thisAssertEquals']
+        );
 
         $instance->expects($this->once())
             ->method('getPropertyValue')
@@ -34,7 +42,7 @@ class ConstructorTraitTest extends TestCase
             ->willReturn($propertyValue);
 
         $instance->expects($this->once())
-            ->method('assertEquals')
+            ->method('thisAssertEquals')
             ->with($propertyValue, $propertyValue);
 
         $this->assertEquals(

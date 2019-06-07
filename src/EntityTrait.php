@@ -10,6 +10,8 @@ use SymonWhite\PhpUnitTraits\Exception\MethodNotFoundException;
  */
 trait EntityTrait
 {
+    use ReflectionTrait, TestCaseBridgeTrait;
+
     /**
      * @param object $class
      * @param array  $propertyValuesByName
@@ -23,7 +25,7 @@ trait EntityTrait
     {
         foreach ($propertyValuesByName as $name => $value) {
             $this->setterTest($class, $name, $value);
-            $this->assertEquals($value, $this->getPropertyValue($class, $name));
+            $this->thisAssertEquals($value, $this->getPropertyValue($class, $name));
         }
 
         return $this;
@@ -83,7 +85,7 @@ trait EntityTrait
 
         foreach ($methodNames as $methodName => $methodValue) {
             if (method_exists($class, $methodName)) {
-                $this->assertEquals($class, $class->{$methodName}($methodValue));
+                $this->thisAssertEquals($class, $class->{$methodName}($methodValue));
                 return;
             }
         }
@@ -108,53 +110,11 @@ trait EntityTrait
 
         foreach ($methodNames as $methodName => $methodValue) {
             if (method_exists($class, $methodName)) {
-                $this->assertEquals($methodValue, $class->{$methodName}());
+                $this->thisAssertEquals($methodValue, $class->{$methodName}());
                 return;
             }
         }
 
         throw new MethodNotFoundException(get_class($class), $name, false);
     }
-
-    /**
-     * @param object $class
-     * @param string $name
-     *
-     * @return mixed|object|string|int|float|null
-     *
-     * @throws ReflectionException
-     */
-    abstract protected function getPropertyValue($class, $name);
-
-    /**
-     * @param object $class
-     * @param string $name
-     * @param mixed|object|string|int|float $value
-     *
-     * @return $this
-     *
-     * @throws ReflectionException
-     */
-    abstract protected function setPropertyValue($class, $name, $value): self;
-
-    /**
-     * Asserts that two variables are equal.
-     *
-     * @param mixed  $expected
-     * @param mixed  $actual
-     * @param string $message
-     * @param float  $delta
-     * @param int    $maxDepth
-     * @param bool   $canonicalize
-     * @param bool   $ignoreCase
-     */
-    abstract public function assertEquals(
-        $expected,
-        $actual,
-        $message = '',
-        $delta = 0.0,
-        $maxDepth = 10,
-        $canonicalize = false,
-        $ignoreCase = false
-    );
 }
