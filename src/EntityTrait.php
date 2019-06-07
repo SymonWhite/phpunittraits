@@ -22,7 +22,7 @@ trait EntityTrait
     protected function doSetterTest($class, array $propertyValuesByName): self
     {
         foreach ($propertyValuesByName as $name => $value) {
-            $this->testSetter($class, $name, $value);
+            $this->setterTest($class, $name, $value);
             $this->assertEquals($value, $this->getPropertyValue($class, $name));
         }
 
@@ -42,7 +42,7 @@ trait EntityTrait
     {
         foreach ($propertyValuesByName as $name => $value) {
             $this->setPropertyValue($class, $name, $value);
-            $this->testGetter($class, $name, $value);
+            $this->getterTest($class, $name, $value);
         }
 
         return $this;
@@ -59,8 +59,8 @@ trait EntityTrait
     protected function doGetterAndSetterTest($class, array $propertyValuesByName): self
     {
         foreach ($propertyValuesByName as $name => $value) {
-            $this->testSetter($class, $name, $value);
-            $this->testGetter($class, $name, $value);
+            $this->setterTest($class, $name, $value);
+            $this->getterTest($class, $name, $value);
         }
 
         return $this;
@@ -73,17 +73,17 @@ trait EntityTrait
      *
      * @throws MethodNotFoundException
      */
-    protected function testSetter($class, $name, $value): void
+    protected function setterTest($class, $name, $value): void
     {
         $ucfName = ucfirst($name);
         $methodNames = [
-            'set' . $ucfName,
-            'add' . rtrim($ucfName, 's')
+            'set' . $ucfName => $value,
+            'add' . rtrim($ucfName, 's') => is_array($value) ? array_shift($value): $value
         ];
 
-        foreach ($methodNames as $methodName) {
+        foreach ($methodNames as $methodName => $methodValue) {
             if (method_exists($class, $methodName)) {
-                $this->assertEquals($class, $class->{$methodName}($value));
+                $this->assertEquals($class, $class->{$methodName}($methodValue));
                 return;
             }
         }
@@ -98,17 +98,17 @@ trait EntityTrait
      *
      * @throws MethodNotFoundException
      */
-    protected function testGetter($class, $name, $value): void
+    protected function getterTest($class, $name, $value): void
     {
         $ucfName = ucfirst($name);
         $methodNames = [
-            'get' . $ucfName,
-            'is' . $ucfName
+            'get' . $ucfName => is_array($value) && !empty($value) ? [array_shift($value)]: $value,
+            'is' . $ucfName => $value
         ];
 
-        foreach ($methodNames as $methodName) {
+        foreach ($methodNames as $methodName => $methodValue) {
             if (method_exists($class, $methodName)) {
-                $this->assertEquals($value, $class->{$methodName}());
+                $this->assertEquals($methodValue, $class->{$methodName}());
                 return;
             }
         }
