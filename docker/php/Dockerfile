@@ -1,4 +1,4 @@
-FROM php:7.3-fpm-alpine
+FROM php:7.2-fpm-alpine
 
 RUN apk --no-cache add ca-certificates curl bash git zlib-dev autoconf make grep gcc libc-dev openssh openssl shadow
 
