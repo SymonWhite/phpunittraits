@@ -2,31 +2,29 @@
 
 namespace SymonWhite\PhpUnitTraits;
 
-use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\MockObject\Matcher\InvokedCount;
+use PHPUnit\Framework\MockObject\MockObject;
 
 /**
- * Trait MockTrait
- *
- * @deprecated use MockingTrait
+ * Class MockingTrait
  */
-trait MockTrait
+trait MockingTrait
 {
     /**
-     * @param MockObject    $mockObject
-     * @param string        $methodName
-     * @param array|mixed[] $arguments
-     * @param array|mixed[] $return
-     * @param int           $invokes
-     * @param bool          $returnSelf
+     * @param MockObject $mockObject
+     * @param string $methodName
+     * @param array $arguments
+     * @param null $return
+     * @param int $invokes
+     * @param bool $returnSelf
      *
      * @return $this
      */
     protected function mockFunction(
         MockObject $mockObject,
-        $methodName,
+        string $methodName,
         array $arguments = [],
-        array $return = [],
+        $return = null,
         $invokes = 1,
         $returnSelf = true
     ): self {
@@ -34,26 +32,26 @@ trait MockTrait
             ->method($methodName)
             ->with(...$arguments);
 
-        if (empty($return) && $returnSelf) {
+        if ($return === null && $returnSelf) {
             $invocationMocker->willReturnSelf();
         }
 
-        if (!empty($return)) {
-            $invocationMocker->willReturn(...$return);
+        if ($return !== null) {
+            $invocationMocker->willReturn($return);
         }
 
         return $this;
     }
 
     /**
-     * @param MockObject    $mockObject
-     * @param string        $methodName
-     * @param array|mixed[] $return
-     * @param int           $invokes
+     * @param MockObject $mockObject
+     * @param string     $methodName
+     * @param mixed      $return
+     * @param int        $invokes
      *
      * @return $this
      */
-    protected function getterMock(MockObject $mockObject, $methodName, array $return = [], $invokes = 1): self
+    protected function getterMock(MockObject $mockObject, string $methodName, $return, int $invokes = 1): self
     {
         $this->mockFunction($mockObject, $methodName, [], $return, $invokes);
 
@@ -71,12 +69,12 @@ trait MockTrait
      */
     protected function setterMock(
         MockObject $mockObject,
-        $methodName,
+        string $methodName,
         array $argument = [],
-        $invokes = 1,
-        $returnSelf = true
+        int $invokes = 1,
+        bool $returnSelf = true
     ): self {
-        $this->mockFunction($mockObject, $methodName, $argument, [], $invokes, $returnSelf);
+        $this->mockFunction($mockObject, $methodName, $argument, null, $invokes, $returnSelf);
 
         return $this;
     }
@@ -88,7 +86,7 @@ trait MockTrait
      *
      * @return $this
      */
-    protected function willReturnMapMock(MockObject $object, $methodName, array $valueMap): self
+    protected function willReturnMapMock(MockObject $object, string $methodName, array $valueMap): self
     {
         $object->expects(new InvokedCount(count($valueMap)))->method($methodName)->willReturnMap($valueMap);
 
