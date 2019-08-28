@@ -18,6 +18,18 @@ class TestEntity
     protected $tests = [];
 
     /**
+     * TestEntity constructor.
+     *
+     * @param string $id
+     * @param array|int[] $tests
+     */
+    public function __construct(string $id = '', array $tests = [])
+    {
+        $this->id = $id;
+        $this->tests = $tests;
+    }
+
+    /**
      * @return string
      */
     public function getId(): string
