@@ -23,7 +23,7 @@ class TestEntity
      * @param string $id
      * @param array|int[] $tests
      */
-    public function __construct(string $id = '', array $tests = [])
+    public function __construct($id = '', array $tests = [])
     {
         $this->id = $id;
         $this->tests = $tests;
@@ -32,7 +32,7 @@ class TestEntity
     /**
      * @return string
      */
-    public function getId(): string
+    public function getId()
     {
         return $this->id;
     }
@@ -42,18 +42,19 @@ class TestEntity
      *
      * @return $this
      */
-    public function setId(string $id): self
+    public function setId($id)
     {
         $this->id = $id;
 
         return $this;
     }
+
     /**
      * @param int $test
      *
      * @return $this
      */
-    public function addTest(int $test): self
+    public function addTest($test)
     {
         $this->tests[] = $test;
 
@@ -63,7 +64,7 @@ class TestEntity
     /**
      * @return array|int[]
      */
-    public function getTests(): array
+    public function getTests()
     {
         return $this->tests;
     }

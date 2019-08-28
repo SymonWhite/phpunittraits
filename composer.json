@@ -4,7 +4,7 @@
   "type": "library",
   "license": "MIT",
   "require": {
-    "php": "~7.3"
+    "php": "^5.6 || ^7.2"
   },
   "require-dev": {
     "phpunit/phpunit": "@stable"
@@ -14,5 +14,9 @@
       "SymonWhite\\PhpUnitTraits\\": "src/",
       "SymonWhite\\PhpUnitTraits\\Test\\": "tests/"
     }
+  },
+  "scripts": {
+    "test": "vendor/bin/phpunit --colors=always",
+    "test-coverage": "vendor/bin/phpunit --colors=always --coverage-html coverage"
   }
 }

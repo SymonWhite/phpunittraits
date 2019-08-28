@@ -10,8 +10,6 @@ use SymonWhite\PhpUnitTraits\Exception\MethodNotFoundException;
  */
 trait EntityTrait
 {
-    use ReflectionTrait, TestCaseBridgeTrait;
-
     /**
      * @param object $class
      * @param array  $propertyValuesByName
@@ -21,11 +19,11 @@ trait EntityTrait
      * @throws ReflectionException
      * @throws MethodNotFoundException
      */
-    protected function doSetterTest($class, array $propertyValuesByName): self
+    protected function doSetterTest($class, array $propertyValuesByName)
     {
         foreach ($propertyValuesByName as $name => $value) {
             $this->setterTest($class, $name, $value);
-            $this->thisAssertEquals($value, $this->getPropertyValue($class, $name));
+            $this->assertEquals($value, $this->getPropertyValue($class, $name));
         }
 
         return $this;
@@ -40,7 +38,7 @@ trait EntityTrait
      * @throws ReflectionException
      * @throws MethodNotFoundException
      */
-    protected function doGetterTest($class, array $propertyValuesByName): self
+    protected function doGetterTest($class, array $propertyValuesByName)
     {
         foreach ($propertyValuesByName as $name => $value) {
             $this->setPropertyValue($class, $name, $value);
@@ -58,7 +56,7 @@ trait EntityTrait
      *
      * @throws MethodNotFoundException
      */
-    protected function doGetterAndSetterTest($class, array $propertyValuesByName): self
+    protected function doGetterAndSetterTest($class, array $propertyValuesByName)
     {
         foreach ($propertyValuesByName as $name => $value) {
             $this->setterTest($class, $name, $value);
@@ -75,7 +73,7 @@ trait EntityTrait
      *
      * @throws MethodNotFoundException
      */
-    protected function setterTest($class, $name, $value): void
+    protected function setterTest($class, $name, $value)
     {
         $ucfName = ucfirst($name);
         $methodNames = [
@@ -85,7 +83,7 @@ trait EntityTrait
 
         foreach ($methodNames as $methodName => $methodValue) {
             if (method_exists($class, $methodName)) {
-                $this->thisAssertEquals($class, $class->{$methodName}($methodValue));
+                $this->assertEquals($class, $class->{$methodName}($methodValue));
                 return;
             }
         }
@@ -100,7 +98,7 @@ trait EntityTrait
      *
      * @throws MethodNotFoundException
      */
-    protected function getterTest($class, $name, $value): void
+    protected function getterTest($class, $name, $value)
     {
         $ucfName = ucfirst($name);
         $methodNames = [
@@ -110,11 +108,53 @@ trait EntityTrait
 
         foreach ($methodNames as $methodName => $methodValue) {
             if (method_exists($class, $methodName)) {
-                $this->thisAssertEquals($methodValue, $class->{$methodName}());
+                $this->assertEquals($methodValue, $class->{$methodName}());
                 return;
             }
         }
 
         throw new MethodNotFoundException(get_class($class), $name, false);
     }
+
+    /**
+     * @param object $class
+     * @param string $name
+     *
+     * @return mixed|object|string|int|float|null
+     *
+     * @throws ReflectionException
+     */
+    abstract protected function getPropertyValue($class, $name);
+
+    /**
+     * @param object $class
+     * @param string $name
+     * @param mixed|object|string|int|float $value
+     *
+     * @return $this
+     *
+     * @throws ReflectionException
+     */
+    abstract protected function setPropertyValue($class, $name, $value);
+
+    /**
+     * Asserts that two variables are equal.
+     *
+     * @param mixed  $expected
+     * @param mixed  $actual
+     * @param string $message
+     * @param float  $delta
+     * @param int    $maxDepth
+     * @param bool   $canonicalize
+     * @param bool   $ignoreCase
+     */
+    abstract public function assertEquals(
+        $expected,
+        $actual,
+        $message = '',
+        $delta = 0.0,
+        $maxDepth = 10,
+        $canonicalize = false,
+        $ignoreCase = false
+    );
 }
