@@ -20,7 +20,7 @@ class ConstructorTraitTest extends TestCase
      *
      * @throws ReflectionException
      */
-    public function testDoConstructorTest(): void
+    public function testDoConstructorTest()
     {
         $class = $this->createMock(\stdClass::class);
         $propertyName = 'name';
@@ -33,7 +33,7 @@ class ConstructorTraitTest extends TestCase
             true,
             true,
             true,
-            ['getPropertyValue', 'thisAssertEquals']
+            ['getPropertyValue', 'assertEquals']
         );
 
         $instance->expects($this->once())
@@ -42,7 +42,7 @@ class ConstructorTraitTest extends TestCase
             ->willReturn($propertyValue);
 
         $instance->expects($this->once())
-            ->method('thisAssertEquals')
+            ->method('assertEquals')
             ->with($propertyValue, $propertyValue);
 
         $this->assertEquals(
@@ -59,7 +59,7 @@ class ConstructorTraitTest extends TestCase
      *
      * @throws ReflectionException
      */
-    protected function getMethod($class, $name): ReflectionMethod
+    protected function getMethod($class, $name)
     {
         $method = new ReflectionMethod($class, $name);
         $method->setAccessible(true);

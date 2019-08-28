@@ -2,8 +2,8 @@
 
 namespace SymonWhite\PhpUnitTraits;
 
-use PHPUnit\Framework\MockObject\Matcher\InvokedCount;
-use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit_Framework_MockObject_Matcher_InvokedCount as InvokedCount;
+use PHPUnit_Framework_MockObject_MockObject as MockObject;
 
 /**
  * Class MockingTrait
@@ -22,12 +22,12 @@ trait MockingTrait
      */
     protected function mockFunction(
         MockObject $mockObject,
-        string $methodName,
+        $methodName,
         array $arguments = [],
         $return = null,
         $invokes = 1,
         $returnSelf = true
-    ): self {
+    ) {
         $invocationMocker = $mockObject->expects(new InvokedCount($invokes))
             ->method($methodName)
             ->with(...$arguments);
@@ -51,7 +51,7 @@ trait MockingTrait
      *
      * @return $this
      */
-    protected function getterMock(MockObject $mockObject, string $methodName, $return, int $invokes = 1): self
+    protected function getterMock(MockObject $mockObject, $methodName, $return, $invokes = 1)
     {
         $this->mockFunction($mockObject, $methodName, [], $return, $invokes);
 
@@ -69,11 +69,11 @@ trait MockingTrait
      */
     protected function setterMock(
         MockObject $mockObject,
-        string $methodName,
+        $methodName,
         array $argument = [],
-        int $invokes = 1,
-        bool $returnSelf = true
-    ): self {
+        $invokes = 1,
+        $returnSelf = true
+    ) {
         $this->mockFunction($mockObject, $methodName, $argument, null, $invokes, $returnSelf);
 
         return $this;
@@ -86,7 +86,7 @@ trait MockingTrait
      *
      * @return $this
      */
-    protected function willReturnMapMock(MockObject $object, string $methodName, array $valueMap): self
+    protected function willReturnMapMock(MockObject $object, $methodName, array $valueMap)
     {
         $object->expects(new InvokedCount(count($valueMap)))->method($methodName)->willReturnMap($valueMap);
 

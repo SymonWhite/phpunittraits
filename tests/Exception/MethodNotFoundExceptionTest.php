@@ -15,7 +15,7 @@ class MethodNotFoundExceptionTest extends TestCase
     /**
      * @covers ::__construct
      */
-    public function testConstruct(): void
+    public function testConstruct()
     {
         $instance = new MethodNotFoundException('className', 'propertyName', true);
         $this->assertEquals(

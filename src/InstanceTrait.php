@@ -3,8 +3,8 @@
 
 namespace SymonWhite\PhpUnitTraits;
 
-use PHPUnit\Framework\MockObject\MockBuilder;
-use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit_Framework_MockObject_MockBuilder as MockBuilder;
+use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -22,7 +22,7 @@ trait InstanceTrait
      */
     protected function getInstance(
         TestCase $testCase,
-        string $className,
+        $className,
         array $constructArgs,
         array $methods = []
     ) {

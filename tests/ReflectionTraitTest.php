@@ -21,7 +21,7 @@ class ReflectionTraitTest extends TestCase
      *
      * @throws ReflectionException
      */
-    public function testGetProperty(): void
+    public function testGetProperty()
     {
         $class = new TestEntity();
         $name = 'id';
@@ -40,7 +40,7 @@ class ReflectionTraitTest extends TestCase
      *
      * @throws ReflectionException
      */
-    public function testGetPropertyValue(): void
+    public function testGetPropertyValue()
     {
         $class = new TestEntity();
         $name = 'id';
@@ -66,7 +66,7 @@ class ReflectionTraitTest extends TestCase
      *
      * @throws ReflectionException
      */
-    public function testSetPropertyValue(): void
+    public function testSetPropertyValue()
     {
         $class = new TestEntity();
         $name = 'id';
@@ -91,7 +91,7 @@ class ReflectionTraitTest extends TestCase
      *
      * @throws ReflectionException
      */
-    public function testGetMethod(): void
+    public function testGetMethod()
     {
         $class = new TestEntity();
         $name = 'getId';
@@ -110,7 +110,7 @@ class ReflectionTraitTest extends TestCase
      *
      * @throws ReflectionException
      */
-    public function testExecuteMethod(): void
+    public function testExecuteMethod()
     {
         $class = new TestEntity();
         $name = 'getId';
@@ -140,7 +140,7 @@ class ReflectionTraitTest extends TestCase
      *
      * @throws ReflectionException
      */
-    protected function getMethod($class, $name): ReflectionMethod
+    protected function getMethod($class, $name)
     {
         $method = new ReflectionMethod($class, $name);
         $method->setAccessible(true);

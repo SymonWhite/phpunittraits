@@ -9,7 +9,7 @@ use ReflectionException;
  */
 trait ConstructorTrait
 {
-    use ReflectionTrait, TestCaseBridgeTrait;
+    use ReflectionTrait;
 
     /**
      * @param object $class
@@ -19,12 +19,33 @@ trait ConstructorTrait
      *
      * @throws ReflectionException
      */
-    protected function doConstructorTest($class, array $propertyValuesByName): self
+    protected function doConstructorTest($class, array $propertyValuesByName)
     {
         foreach ($propertyValuesByName as $name => $value) {
-            $this->thisAssertEquals($value, $this->getPropertyValue($class, $name));
+            $this->assertEquals($value, $this->getPropertyValue($class, $name));
         }
 
         return $this;
     }
+
+    /**
+     * Asserts that two variables are equal.
+     *
+     * @param mixed  $expected
+     * @param mixed  $actual
+     * @param string $message
+     * @param float  $delta
+     * @param int    $maxDepth
+     * @param bool   $canonicalize
+     * @param bool   $ignoreCase
+     */
+    abstract public function assertEquals(
+        $expected,
+        $actual,
+        $message = '',
+        $delta = 0.0,
+        $maxDepth = 10,
+        $canonicalize = false,
+        $ignoreCase = false
+    );
 }

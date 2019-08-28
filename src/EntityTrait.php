@@ -10,6 +10,8 @@ use SymonWhite\PhpUnitTraits\Exception\MethodNotFoundException;
  */
 trait EntityTrait
 {
+    use ReflectionTrait;
+
     /**
      * @param object $class
      * @param array  $propertyValuesByName
@@ -115,27 +117,6 @@ trait EntityTrait
 
         throw new MethodNotFoundException(get_class($class), $name, false);
     }
-
-    /**
-     * @param object $class
-     * @param string $name
-     *
-     * @return mixed|object|string|int|float|null
-     *
-     * @throws ReflectionException
-     */
-    abstract protected function getPropertyValue($class, $name);
-
-    /**
-     * @param object $class
-     * @param string $name
-     * @param mixed|object|string|int|float $value
-     *
-     * @return $this
-     *
-     * @throws ReflectionException
-     */
-    abstract protected function setPropertyValue($class, $name, $value);
 
     /**
      * Asserts that two variables are equal.

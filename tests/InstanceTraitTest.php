@@ -2,7 +2,7 @@
 
 namespace SymonWhite\PhpUnitTraits\Test;
 
-use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use PHPUnit\Framework\TestCase;
 use SymonWhite\PhpUnitTraits\InstanceTrait;
 use SymonWhite\PhpUnitTraits\ReflectionTrait;
@@ -17,7 +17,7 @@ class InstanceTraitTest extends TestCase
     /**
      * @throws \ReflectionException
      */
-    public function testGetInstanceMock(): void
+    public function testGetInstanceMock()
     {
         $testCase = $this->createMock(TestCase::class);
         $className = TestEntity::class;
@@ -33,7 +33,7 @@ class InstanceTraitTest extends TestCase
     /**
      * @throws \ReflectionException
      */
-    public function testGetInstance(): void
+    public function testGetInstance()
     {
         $testCase = $this->createMock(TestCase::class);
         $className = TestEntity::class;

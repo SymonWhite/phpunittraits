@@ -19,7 +19,7 @@ trait ReflectionTrait
      *
      * @throws ReflectionException
      */
-    protected function getProperty($class, $name): ReflectionProperty
+    protected function getProperty($class, $name)
     {
         $property = new ReflectionProperty($class, $name);
         $property->setAccessible(true);
@@ -49,7 +49,7 @@ trait ReflectionTrait
      *
      * @throws ReflectionException
      */
-    protected function setPropertyValue($class, $name, $value): self
+    protected function setPropertyValue($class, $name, $value)
     {
         $this->getProperty($class, $name)->setValue($class, $value);
 
@@ -64,7 +64,7 @@ trait ReflectionTrait
      *
      * @throws ReflectionException
      */
-    protected function getMethod($class, $name): ReflectionMethod
+    protected function getMethod($class, $name)
     {
         $method = new ReflectionMethod($class, $name);
         $method->setAccessible(true);
