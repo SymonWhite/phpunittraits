@@ -249,34 +249,4 @@ class EntityTraitTest extends TestCase
 
         $this->executeMethod($instance, 'getterTest', $class, $propertyName, $propertyValue);
     }
-
-    /**
-     * @param object $class
-     * @param string $name
-     *
-     * @return ReflectionMethod
-     *
-     * @throws ReflectionException
-     */
-    protected function getMethod($class, $name): ReflectionMethod
-    {
-        $method = new ReflectionMethod($class, $name);
-        $method->setAccessible(true);
-
-        return $method;
-    }
-
-    /**
-     * @param object $class
-     * @param string $name
-     * @param mixed|object|string|int|float|null ...$params
-     *
-     * @return mixed
-     *
-     * @throws ReflectionException
-     */
-    protected function executeMethod($class, $name, ...$params)
-    {
-        return $this->getMethod($class, $name)->invoke($class, ...$params);
-    }
 }
