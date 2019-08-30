@@ -9,8 +9,6 @@ use ReflectionException;
  */
 trait ConstructorTrait
 {
-    use ReflectionTrait;
-
     /**
      * @param object $class
      * @param array  $propertyValuesByName
