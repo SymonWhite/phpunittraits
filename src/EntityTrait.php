@@ -10,8 +10,6 @@ use SymonWhite\PhpUnitTraits\Exception\MethodNotFoundException;
  */
 trait EntityTrait
 {
-    use ReflectionTrait;
-
     /**
      * @param object $class
      * @param array  $propertyValuesByName
